@@ -1,11 +1,26 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
+import { login, getUserInfo } from '@/services/user';
+import { setUserInfo } from '@/utils/authority';
+import { useRequest } from 'umi';
 import styles from './index.less';
 
 export default function () {
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+    run(values);
   };
+  const { run, loading } = useRequest(login, {
+    manual: true,
+    onSuccess(res: any) {
+      getUser(res.token);
+    },
+  });
+  const { run: getUser } = useRequest(getUserInfo, {
+    manual: true,
+    onSuccess(res) {
+      setUserInfo(res);
+    },
+  });
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.loginContainer}>
@@ -16,7 +31,7 @@ export default function () {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name="userName"
             rules={[{ required: true, message: 'Please input your Username!' }]}
           >
             <Input
@@ -40,6 +55,7 @@ export default function () {
               type="primary"
               htmlType="submit"
               className={styles.loginFormButton}
+              loading={loading}
             >
               登录
             </Button>
