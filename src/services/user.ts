@@ -1,12 +1,7 @@
 import { request } from 'umi';
 
-export async function getUserInfo(token: string) {
-  return request('/api/user/info', {
-    method: 'POST',
-    headers: {
-      // token,
-    },
-  });
+export async function getUser() {
+  return request('/api/user/info', { method: 'POST' });
 }
 
 export function login(data: any, options?: any) {

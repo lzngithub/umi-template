@@ -1,8 +1,10 @@
 export default function (initialState: any) {
-  const { userId, role } = initialState;
-
-  return {
-    canReadFoo: true,
-    canUpdateFoo: role === 'admin',
-  };
+  if (initialState) {
+    const { permission } = initialState;
+    console.log(permission, 'permission');
+    return {
+      ...permission,
+      needAccess: false,
+    };
+  }
 }

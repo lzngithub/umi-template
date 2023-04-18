@@ -11,3 +11,9 @@ export const getUserInfo = () => {
 export const clearUserInfo = () => {
   localStorage.removeItem('userInfo');
 };
+
+// 判断是否有权限
+export const isAccess = (key: string) => {
+  const permission = getUserInfo()?.permission;
+  return permission[key];
+};

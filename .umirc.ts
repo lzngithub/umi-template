@@ -8,6 +8,10 @@ export default defineConfig({
   request: {
     dataField: 'body',
   },
+  layout: {
+    headerRender: false, // 默认布局需要顶部导航栏，某个页面需要可以在路由配置里单独开启
+    menuRender: false,
+  },
   routes,
   fastRefresh: {},
   proxy: {
