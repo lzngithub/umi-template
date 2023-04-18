@@ -3,12 +3,41 @@ export default [
   {
     path: '/login',
     name: '登录',
-    component: '@/pages/login/index',
+    component: '@/pages/login',
+    headerRender: false, //  不展示导航栏
+    hideInMenu: true, // 隐藏自己
   },
-  { path: '/home', name: '首页', component: '@/pages/home/index' },
   {
-    path: '/needAccess',
-    name: '权限校验页',
-    component: '@/pages/needAccess/index',
+    path: '/home',
+    name: '首页',
+    component: '@/pages/home',
+  },
+  {
+    path: '/knowledge',
+    name: '知识应用',
+    routes: [
+      {
+        path: '/knowledge/typeSelect',
+        name: '型号选择',
+        component: '@/pages/knowledge/typeSelect',
+        access: 'needAccess',
+      },
+      {
+        path: '/knowledge/account',
+        name: '台账管理',
+        routes: [
+          {
+            path: '/knowledge/account/purchase',
+            name: '采购表',
+            component: '@/pages/knowledge/account/purchase',
+          },
+          {
+            path: '/knowledge/account/sales',
+            name: '销售表',
+            component: '@/pages/knowledge/account/sales',
+          },
+        ],
+      },
+    ],
   },
 ];

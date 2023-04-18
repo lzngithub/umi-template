@@ -3,6 +3,12 @@ import { getUserInfo } from '@/utils/authority';
 import { history } from 'umi';
 import { mapData } from '@/utils/index';
 import { getUser } from '@/services/user';
+import {
+  BasicLayoutProps,
+  Settings as LayoutSettings,
+} from '@ant-design/pro-layout';
+import { Header } from '@/components/header';
+import { RightContent } from '@/components/rightContent';
 
 export const request: RequestConfig = {
   timeout: 10000,
@@ -39,8 +45,8 @@ export const request: RequestConfig = {
 };
 
 export async function getInitialState() {
-  if (history.location.pathname === '/login') return null; // 登陆页不需要去请求用户信息
-  const userInfo = await getUser();
+  if (history.location.pathname === '/login') return {}; // 登陆页不需要去请求用户信息
+  const { body: userInfo } = await getUser();
   userInfo.permission = mapData(userInfo.permissionItemList, {});
   return userInfo;
 }
@@ -52,3 +58,15 @@ export function render(oldRender: () => void) {
   }
   return oldRender();
 }
+
+export const layout = ({
+  initialState,
+}: {
+  initialState: { settings?: LayoutSettings };
+}): BasicLayoutProps => {
+  return {
+    rightContentRender: () => <RightContent />,
+    menuHeaderRender: () => <Header></Header>,
+    ...initialState?.settings,
+  };
+};

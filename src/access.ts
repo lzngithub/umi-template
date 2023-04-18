@@ -1,10 +1,7 @@
 export default function (initialState: any) {
-  if (initialState) {
-    const { permission } = initialState;
-    console.log(permission, 'permission');
-    return {
-      ...permission,
-      needAccess: false,
-    };
-  }
+  const { permission } = initialState;
+  return {
+    ...permission,
+    needAccess: true,
+  };
 }
