@@ -5,7 +5,7 @@ export default [
     name: '登录',
     component: '@/pages/login',
     headerRender: false, //  不展示导航栏
-    hideInMenu: true, // 隐藏自己
+    hideInMenu: true, // 隐藏自己和子菜单
   },
   {
     path: '/home',
@@ -15,6 +15,7 @@ export default [
   {
     path: '/knowledge',
     name: '知识应用',
+    component: '@/layouts/sideLayout',
     routes: [
       {
         path: '/knowledge/typeSelect',
@@ -25,6 +26,8 @@ export default [
       {
         path: '/knowledge/account',
         name: '台账管理',
+        hideChildrenInMenu: true, // 隐藏子菜单
+        // redirect: '/knowledge/account/purchase',
         routes: [
           {
             path: '/knowledge/account/purchase',
@@ -35,6 +38,7 @@ export default [
             path: '/knowledge/account/sales',
             name: '销售表',
             component: '@/pages/knowledge/account/sales',
+            footerRender: false,
           },
         ],
       },

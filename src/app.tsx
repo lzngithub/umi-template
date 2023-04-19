@@ -9,6 +9,7 @@ import {
 } from '@ant-design/pro-layout';
 import { Header } from '@/components/header';
 import { RightContent } from '@/components/rightContent';
+import Footer from '@/components/footer';
 
 export const request: RequestConfig = {
   timeout: 10000,
@@ -45,13 +46,15 @@ export const request: RequestConfig = {
 };
 
 export async function getInitialState() {
-  if (history.location.pathname === '/login') return {}; // 登陆页不需要去请求用户信息
+  if (['/login', '/'].includes(history.location.pathname)) return {}; // 首页、登陆页不需要去请求用户信息
+  console.log(history.location.pathname);
   const { body: userInfo } = await getUser();
   userInfo.permission = mapData(userInfo.permissionItemList, {});
   return userInfo;
 }
 
 export function render(oldRender: () => void) {
+  console.log(getUserInfo());
   if (!getUserInfo()) {
     // 本地没有存有用户信息则直接跳转到登录页
     history.push('/login');
@@ -64,9 +67,13 @@ export const layout = ({
 }: {
   initialState: { settings?: LayoutSettings };
 }): BasicLayoutProps => {
+  const contentStyle = {
+    height: 'calc(100vh - 70px)',
+  };
   return {
+    contentStyle,
     rightContentRender: () => <RightContent />,
     menuHeaderRender: () => <Header></Header>,
-    ...initialState?.settings,
+    footerRender: () => <Footer />,
   };
 };
