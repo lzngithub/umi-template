@@ -12,6 +12,7 @@ export default defineConfig({
     // headerRender: false, // 默认布局需要顶部导航栏，某个页面需要可以在路由配置里单独开启
     // menuRender: false,
     layout: 'top',
+    className: 'globalLayout',
   },
   routes,
   fastRefresh: {},
