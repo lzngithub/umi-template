@@ -23,10 +23,16 @@ export const request: RequestConfig = {
   requestInterceptors: [
     (url, options) => {
       let newUrl = url;
+      if (process.env.NODE_ENV === 'production') {
+        const replaceurl = url.replace('/apis/', '/');
+        newUrl = process.env.API_URL + replaceurl;
+      }
+
       const newOptions = { ...options };
       const token = getUserInfo()?.token;
       newOptions.headers = { ...(newOptions.headers || {}), token };
       newOptions.credentials = 'omit';
+
       return {
         url: newUrl,
         options: newOptions,
