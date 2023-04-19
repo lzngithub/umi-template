@@ -9,7 +9,7 @@ export default defineConfig({
     dataField: 'body', // 调整接口默认返回的数据的字段为body字段
   },
   define: {
-    'process.env.API_URL': 'http://192.168.1.34:31600',
+    'process.env.API_URL': 'http://0.0.0.0:31600',
   },
   layout: {
     // headerRender: false, // 默认布局需要顶部导航栏，某个页面需要可以在路由配置里单独开启
@@ -21,7 +21,7 @@ export default defineConfig({
   fastRefresh: {},
   proxy: {
     '/api/': {
-      target: 'http://192.168.1.34:31600', // 开发环境
+      target: 'http://0.0.0.0:31600', // 开发环境
       changeOrigin: true,
       pathRewrite: {
         '/apis/': '/',
